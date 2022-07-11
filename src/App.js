@@ -17,6 +17,7 @@ class App extends Component {
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.deleteTask = this.deleteTask.bind(this);
   }
 
   handleChange(e) {
@@ -36,16 +37,24 @@ class App extends Component {
        }
     })
   }
+  deleteTask(taskId) {
+    this.setState({
+      tasks: (this.state.tasks.filter(task => {
+        console.log(task)
+      }))
+      })
+  }
 
   render() {
+    const { task, tasks, deleteTask } = this.state
     return (
           <div className="App">
           <form>
             <label htmlFor="input">Task</label>
-            <input type="text" id="input" name="input" value={this.state.task.value} onChange={this.handleChange}></input>
+            <input type="text" id="input" name="input" value={task.value} onChange={this.handleChange}></input>
             <button type="button" onClick={this.handleSubmit}>Submit</button>
           </form>
-          <Overview tasks={this.state.tasks}/>
+          <Overview tasks={tasks} delete={deleteTask}/>
         </div>)
   }
 }
